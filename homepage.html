@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPark Pro | Smart Parking Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        dark: '#0F172A',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+                        'slide-in': 'slideIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { 
+                                opacity: '0',
+                                transform: 'translateY(30px)' 
+                            },
+                            '100%': { 
+                                opacity: '1',
+                                transform: 'translateY(0)' 
+                            },
+                        },
+                        slideIn: {
+                            '0%': { 
+                                opacity: '0',
+                                transform: 'translateX(-20px)' 
+                            },
+                            '100%': { 
+                                opacity: '1',
+                                transform: 'translateX(0)' 
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom animations */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes borderPulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #0F172A, #1E293B, #334155);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        .pulse-border {
+            animation: borderPulse 2s infinite;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+        
+        .icon-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .icon-hover:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+        }
+        
+        .parking-spot {
+            transition: all 0.4s ease;
+            perspective: 1000px;
+        }
+        
+        .parking-spot:hover {
+            transform: scale(1.05) rotateY(10deg);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-darker text-gray-300 min-h-screen">
+    <!-- Animated Navigation -->
+    <nav class="bg-dark/80 backdrop-blur-md border-b border-gray-800 fixed w-full z-50 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-parking text-primary text-2xl animate-float"></i>
+                <span class="text-xl font-bold text-white">Auto<span class="text-primary">Park</span> Pro</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-300 hover:text-primary transition duration-300 font-medium">Solutions</a>
+                <a href="#" class="text-gray-300 hover:text-primary transition duration-300 font-medium">Technology</a>
+                <a href="#" class="text-gray-300 hover:text-primary transition duration-300 font-medium">Cities</a>
+                <a href="#" class="text-gray-300 hover:text-primary transition duration-300 font-medium">About</a>
+                <a href="#" class="text-gray-300 hover:text-primary transition duration-300 font-medium">Contact</a>
+            </div>
+            <div class="flex space-x-4">
+                <a href= "login.php" class="text-gray-300 hover:text-primary transition duration-300 font-medium hover:underline hover:underline-offset-8 hover:animate-pulse">
+                    Login
+                </a>
+                <button class="bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-full font-medium transition duration-300 hover:scale-105">
+                    Get Demo
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-32 pb-20 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 animate-fade-in">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        Smart Parking <span class="text-primary">Reinvented</span> with AI
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-8 max-w-lg">
+                        Our advanced parking management system reduces congestion, saves time, and optimizes urban space utilization through cutting-edge technology.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 animate-slide-up">
+                        <button class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-bold transition duration-300 hover:scale-105">
+                            Request Demo
+                        </button>
+                        <button class="border border-primary text-primary hover:bg-primary/10 px-8 py-3 rounded-full font-bold transition duration-300 hover:scale-105">
+                            Learn More
+                        </button>
+                    </div>
+                    <div class="flex mt-10 space-x-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span class="text-sm">Real-time availability</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span class="text-sm">AI optimization</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-2"></i>
+                            <span class="text-sm">24/7 monitoring</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div class="relative max-w-xl mx-auto animate-float">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fbc324ad-4d41-46f4-9f3c-93cadebb5b5a.png" alt="AI-powered parking vision showing smart city integration and vehicle detection" class="rounded-xl shadow-2xl border-2 border-primary/30 z-10 relative transform transition-transform hover:scale-105 duration-500">
+                        <div class="absolute -bottom-6 -right-6 w-full h-full bg-primary/20 rounded-xl -z-10 animate-pulse-slow"></div>
+                        <div class="absolute -top-6 -left-6 w-full h-full bg-blue-500/10 rounded-xl -z-20 rotate-6 animate-ping-slow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-darker p-8 rounded-xl shadow-lg border border-gray-800 text-center card-hover">
+                    <div class="text-5xl font-bold text-primary mb-2 animate-pulse-slow">98<span class="text-3xl">%</span></div>
+                    <h4 class="text-xl font-semibold text-white mb-2">Accuracy Rate</h4>
+                    <p class="text-gray-400">In parking space detection and occupancy prediction</p>
+                </div>
+                <div class="bg-darker p-8 rounded-xl shadow-lg border border-gray-800 text-center card-hover">
+                    <div class="text-5xl font-bold text-primary mb-2 animate-pulse-slow">40<span class="text-3xl">%</span></div>
+                    <h4 class="text-xl font-semibold text-white mb-2">Time Saved</h4>
+                    <p class="text-gray-400">Reduction in average parking search time</p>
+                </div>
+                <div class="bg-darker p-8 rounded-xl shadow-lg border border-gray-800 text-center card-hover">
+                    <div class="text-5xl font-bold text-primary mb-2 animate-pulse-slow">10<span class="text-3xl">+</span></div>
+                    <h4 class="text-xl font-semibold text-white mb-2">Cities Served</h4>
+                    <p class="text-gray-400">Implementing our smart parking solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parking Visualization -->
+    <section class="py-20 bg-darker px-4">
+        <div class="container mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Real-time Parking Visualization</h2>
+                <p class="text-gray-400">Interactive map showing available, occupied, and reserved parking spaces with real-time updates</p>
+            </div>
+            
+            <div class="mx-auto max-w-4xl bg-dark rounded-xl p-6 shadow-xl border border-gray-800">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    <!-- Parking spots - each with hover animation -->
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-green-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">A-01</p>
+                        <span class="text-xs text-green-400">Available</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-red-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">A-02</p>
+                        <span class="text-xs text-red-400">Occupied</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-green-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">A-03</p>
+                        <span class="text-xs text-green-400">Available</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-yellow-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">A-04</p>
+                        <span class="text-xs text-yellow-400">Reserved</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-green-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">B-01</p>
+                        <span class="text-xs text-green-400">Available</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-red-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">B-02</p>
+                        <span class="text-xs text-red-400">Occupied</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center">
+                        <i class="fas fa-car text-yellow-400 text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">B-03</p>
+                        <span class="text-xs text-yellow-400">Reserved</span>
+                    </div>
+                    <div class="parking-spot bg-dark border border-gray-700 rounded-lg p-4 text-center pulse-border">
+                        <i class="fas fa-plus text-primary text-2xl mb-2"></i>
+                        <p class="font-semibold text-white">More</p>
+                        <span class="text-xs text-primary">View All</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-dark px-4">
+        <div class="container mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Advanced Parking Technology</h2>
+                <p class="text-gray-400">Our system leverages cutting-edge technologies to revolutionize urban parking</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-brain icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI Parking Optimization</h3>
+                    <p class="text-gray-400">Machine learning algorithms predict parking availability and guide drivers to optimal spaces in real-time.</p>
+                </div>
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-sensor icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">IoT Sensor Network</h3>
+                    <p class="text-gray-400">High-precision sensors provide accurate, real-time data on parking space occupancy across entire cities.</p>
+                </div>
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-mobile-alt icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Seamless Mobile Integration</h3>
+                    <p class="text-gray-400">Drivers can find, reserve, and pay for parking directly through our intuitive mobile application.</p>
+                </div>
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-chart-line icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Analytics Dashboard</h3>
+                    <p class="text-gray-400">Comprehensive analytics help city planners optimize parking inventory and infrastructure.</p>
+                </div>
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-lightbulb icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Lighting</h3>
+                    <p class="text-gray-400">Integrated lighting systems guide drivers to available spots and improve parking garage safety.</p>
+                </div>
+                <div class="bg-darker rounded-xl p-8 border border-gray-800 card-hover">
+                    <div class="text-primary text-4xl mb-6">
+                        <i class="fas fa-robot icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Autonomous Support</h3>
+                    <p class="text-gray-400">System ready for integration with autonomous vehicle parking protocols and standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Vision Section -->
+    <section class="py-20 bg-gradient-to-r from-dark to-darker px-4">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-12 lg:mb-0">
+                <div class="relative h-64 lg:h-96 bg-dark rounded-xl overflow-hidden border border-gray-700">
+                    <div class="absolute inset-0 bg-[url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5ff3c361-5cd0-4fc1-ac7c-9dde0014c410.png')] bg-cover bg-center opacity-80 hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2 animate-slide-in">AI-Powered Insights</h3>
+                        <p class="text-gray-300">Real-time parking analytics and predictive modeling</p>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/20 text-primary border border-primary/50 animate-pulse">
+                            AI LIVE VIEW
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 lg:pl-12">
+                <h2 class="text-3xl font-bold text-white mb-6">The Future of Parking, Powered by AI</h2>
+                <p class="text-gray-300 mb-8">Our proprietary AI algorithms continuously analyze parking patterns to:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-primary text-white animate-bounce">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="ml-3 text-gray-300">Predict peak parking times with 95% accuracy</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-primary text-white animate-bounce" style="animation-delay: 0.2s">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="ml-3 text-gray-300">Optimize space allocation in real-time</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-6 w-6 rounded-full bg-primary text-white animate-bounce" style="animation-delay: 0.4s">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="ml-3 text-gray-300">Reduce search time by up to 60%</p>
+                    </li>
+                </ul>
+                <button class="mt-8 border border-primary text-primary hover:bg-primary/10 px-8 py-3 rounded-full font-bold transition duration-300 hover:scale-105 hover:shadow-lg">
+                    Explore AI Features
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white mb-6">Ready to Transform Urban Parking?</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10">Join leading cities implementing our smart parking solution to reduce congestion and improve citizen experiences.</p>
+            <button class="bg-white text-blue-600 hover:bg-gray-100 px-10 py-4 rounded-full font-bold text-lg transition duration-300 hover:scale-105 animate-bounce">
+                Schedule a Consultation
+                <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800 py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-parking text-primary text-2xl"></i>
+                        <span class="text-xl font-bold text-white">AutoPark Pro</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Leading the future of smart urban parking solutions with innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300 text-xl">
+                            <i class="fab fa-twitter icon-hover"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300 text-xl">
+                            <i class="fab fa-linkedin icon-hover"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300 text-xl">
+                            <i class="fab fa-github icon-hover"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Solutions</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Smart Cities</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Commercial Parking</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Airports</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Universities</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Case Studies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition duration-300">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="text-gray-400"><i class="fas fa-map-marker-alt text-primary mr-2"></i> San Francisco, CA</li>
+                        <li class="text-gray-400"><i class="fas fa-envelope text-primary mr-2"></i> info@autoparkpro.com</li>
+                        <li class="text-gray-400"><i class="fas fa-phone text-primary mr-2"></i> +1 (555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2023 AutoPark Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive parking spot click handler
+        document.querySelectorAll('.parking-spot').forEach(spot => {
+            spot.addEventListener('click', function() {
+                this.classList.add('animate-pulse');
+                setTimeout(() => {
+                    this.classList.remove('animate-pulse');
+                }, 1000);
+            });
+        });
+        
+        // Handle intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card-hover').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
